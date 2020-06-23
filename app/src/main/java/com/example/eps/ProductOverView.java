@@ -10,7 +10,15 @@ public class ProductOverView {
     String Price = "";
     String Description = "";
     Bitmap MainBitmap;
+    ArrayList<Bitmap> Bitmaps;
 
+    public ArrayList<Bitmap> getBitmaps() {
+        return Bitmaps;
+    }
+
+    public void setBitmaps(ArrayList<Bitmap> bitmaps) {
+        Bitmaps = bitmaps;
+    }
 
     public ProductOverView(String nameOfProduct, String price, String description) {
         NameOfProduct = nameOfProduct;
@@ -24,6 +32,10 @@ public class ProductOverView {
 
     public void setMainBitmap(Bitmap mainBitmap) {
         MainBitmap = mainBitmap;
+    }
+
+    public void addBitmap(Bitmap bitmap) {
+        Bitmaps.add(bitmap);
     }
 
     public String getNameOfProduct() {

@@ -1,5 +1,6 @@
 package com.example.eps;
 
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,7 @@ public class ProductImagesSliderAdapter extends RecyclerView.Adapter<ProductImag
     @Override
     public void onBindViewHolder(@NonNull ProductImagesSliderAdapter.ViewHolder holder, int position) {
         // Data Binding
-        int Icon = (SliderModel.get(position).getBanner());
+        Bitmap Icon = (SliderModel.get(position).getBanner());
 
         holder.setCategory(position, Icon);
 
@@ -62,9 +63,9 @@ public class ProductImagesSliderAdapter extends RecyclerView.Adapter<ProductImag
 
         }
 
-        public  void setCategory(final int position, int bitmap) {
+        public  void setCategory(final int position, Bitmap bitmap) {
 
-            categoryIcon.setImageResource(bitmap);
+            categoryIcon.setImageBitmap(bitmap);
 //
 //            itemView.setOnClickListener(new View.OnClickListener() {
 //                @Override

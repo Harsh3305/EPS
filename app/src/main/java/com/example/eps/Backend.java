@@ -268,5 +268,67 @@ public class Backend {
     }
 
 
+    public void loadImages(int index) {
+
+        String Path = "Product/" + index + "/" ;
+        ImagesList = new ArrayList<>();
+
+        ReadDatabaseAllImages(Path);
+
+    }
+
+    public static ArrayList<Bitmap> ImagesList = new ArrayList<>();
+
+    public void ReadDatabaseAllImages(String Path) {
+        // Read from the database
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Path);
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                Product value = dataSnapshot.getValue(Product.class);
+
+
+                String nameOfProduct = value.getNameOfProduct();
+                String NumberOfImages = value.NumberOfImage;
+
+                int index = list.size();
+//                list.add(new ProductOverView(nameOfProduct, Price, Detail));
+//                MapOfProduct.put(value.NameOfProduct, index);
+
+                int num = Integer.parseInt(NumberOfImages);
+
+                for (int i = 0; i < 1; i++) {
+                    String Path = "Product/" + nameOfProduct + "/"  + i +".png" ;
+                    getStorageImages(Path, index);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+
+            }
+        });
+    }
+
+
+
+    public void getStorageImages(String Path, final int index) {
+        StorageReference  ref = mStorageRef.child(Path);
+        ref.getBytes(1024*1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+                ImagesList.add(bitmap);
+            }
+        });
+    }
+
+
 
 }

@@ -49,18 +49,9 @@
 
 
 
-        <ScrollView
-        android:layout_width="409dp"
-        android:layout_height="673dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical" >
 
 
@@ -82,12 +73,13 @@
                 android:layout_height="61dp"
                 android:layout_marginStart="4dp"
                 android:background="@color/colorPrimary"
-                android:gravity="center"
+                android:gravity="center_horizontal|center_vertical"
                 android:text="Product"
 
                 android:textColor="@color/colorAccent"
                 android:textSize="55dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/imageButton"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -112,13 +104,56 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+
+
             </LinearLayout>
+
+            <ScrollView
+                android:layout_width="412dp"
+                android:layout_height="269dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                app:layout_constraintVertical_bias="0.0">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Price: "
+                        android:textSize="30dp"
+                        android:id="@+id/Price"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="211dp"
+                        android:layout_marginTop="52dp"
+                        android:id="@+id/Description"
+                        android:text="No Description Available"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.457"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </ScrollView>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

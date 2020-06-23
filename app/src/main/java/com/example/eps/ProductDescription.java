@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.eps.ui.gallery.NotificationModel;
 import com.example.eps.ui.gallery.NotigicationAdaptor;
+import com.example.eps.ui.home.HomeFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -27,6 +29,8 @@ public class ProductDescription extends AppCompatActivity {
     private TextView productName;
     private RecyclerView ProductImageRecyclerView;
     private Button Purchase;
+    private TextView Price;
+    private TextView Description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,14 @@ public class ProductDescription extends AppCompatActivity {
         setContentView(R.layout.activity_product_description);
 
         final String Link = getIntent().getStringExtra("Name");
+        int index = Integer.parseInt(Link);
+        Description = findViewById(R.id.Description);
+        Price = findViewById(R.id.Price);
+
+
+        Bitmap  bitmap =Backend.list.get(index).getMainBitmap();
+
+        ProductOverView product = Backend.list.get(index);
 
         ProductImageRecyclerView = findViewById(R.id.RecycleViewProductImage);
 
@@ -56,9 +68,19 @@ public class ProductDescription extends AppCompatActivity {
             }
         });
 
+        //startActivity(new Intent(ProductDescription.this, LoadingActivity.class));
+
         productName = findViewById(R.id.ProductName);
 
-        productName.setText(Link);
+        productName.setText(product.NameOfProduct);
+        Description.setText(product.Description);
+        if (! product.getPrice().equals("")) {
+            Price.setText(product.Price);
+        }
+        else {
+            Price.setText("Not Available");
+        }
+
 
         /////////////////// categoryRecyclerView
 
@@ -69,26 +91,7 @@ public class ProductDescription extends AppCompatActivity {
 
         List<ProductImagesSliderModel> ProductImagesSliderModelList = new ArrayList<>();
 
-        ProductImagesSliderModelList.add(new ProductImagesSliderModel(R.mipmap.ic_launcher));
-        ProductImagesSliderModelList.add(new ProductImagesSliderModel(R.mipmap.ic_launcher));
-        ProductImagesSliderModelList.add(new ProductImagesSliderModel(R.mipmap.ic_launcher));
-        ProductImagesSliderModelList.add(new ProductImagesSliderModel(R.mipmap.ic_launcher));
-
-        ProductImagesSliderModelList.add(new ProductImagesSliderModel(R.mipmap.ic_launcher));
-        ProductImagesSliderModelList.add(new ProductImagesSliderModel(R.mipmap.ic_launcher));
-        ProductImagesSliderModelList.add(new ProductImagesSliderModel(R.mipmap.ic_launcher));
-        ProductImagesSliderModelList.add(new ProductImagesSliderModel(R.mipmap.ic_launcher));
-
-        ProductImagesSliderModelList.add(new ProductImagesSliderModel(R.mipmap.ic_launcher));
-        ProductImagesSliderModelList.add(new ProductImagesSliderModel(R.mipmap.ic_launcher));
-        ProductImagesSliderModelList.add(new ProductImagesSliderModel(R.mipmap.ic_launcher));
-        ProductImagesSliderModelList.add(new ProductImagesSliderModel(R.mipmap.ic_launcher));
-
-        ProductImagesSliderModelList.add(new ProductImagesSliderModel(R.mipmap.ic_launcher));
-        ProductImagesSliderModelList.add(new ProductImagesSliderModel(R.mipmap.ic_launcher));
-        ProductImagesSliderModelList.add(new ProductImagesSliderModel(R.mipmap.ic_launcher));
-        ProductImagesSliderModelList.add(new ProductImagesSliderModel(R.mipmap.ic_launcher));
-
+        ProductImagesSliderModelList.add(new ProductImagesSliderModel(bitmap));
 
         ProductImagesSliderAdapter categoryAdapter = new ProductImagesSliderAdapter(ProductImagesSliderModelList);
         ProductImageRecyclerView.setAdapter(categoryAdapter);

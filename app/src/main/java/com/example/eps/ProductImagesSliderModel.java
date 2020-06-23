@@ -1,11 +1,13 @@
 package com.example.eps;
 
+import android.graphics.Bitmap;
+
 public class ProductImagesSliderModel {
 
-    private int banner;
+    private Bitmap banner;
     private String BackgroundColor;
 
-    public ProductImagesSliderModel(int banner) {
+    public ProductImagesSliderModel(Bitmap banner) {
         this.banner = banner;
         BackgroundColor = "#ffffff";
     }
@@ -14,11 +16,11 @@ public class ProductImagesSliderModel {
         return BackgroundColor;
     }
 
-    public int getBanner() {
+    public Bitmap getBanner() {
         return banner;
     }
 
-    public void setBanner(int banner) {
+    public void setBanner(Bitmap banner) {
         this.banner = banner;
     }
 
