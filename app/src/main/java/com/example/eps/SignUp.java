@@ -58,7 +58,6 @@ public class SignUp extends AppCompatActivity {
                                     Backend backend = new Backend();
                                     backend.uploadUser(Usr);
                                     startActivity(new Intent(SignUp.this, MainActivity.class));
-
                                     finish();
                                 } else {
                                     Snackbar.make(v, task.getException().toString(), Snackbar.LENGTH_LONG)
