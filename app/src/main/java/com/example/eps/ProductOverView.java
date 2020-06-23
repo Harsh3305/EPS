@@ -10,6 +10,16 @@ public class ProductOverView {
     String Price = "";
     String Description = "";
     Bitmap MainBitmap;
+    int index = -1;
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
     ArrayList<Bitmap> Bitmaps;
 
     public ArrayList<Bitmap> getBitmaps() {

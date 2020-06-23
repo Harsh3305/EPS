@@ -5,6 +5,21 @@ import android.graphics.Bitmap;
 public class NotificationModel {
     private Bitmap Image;
     private String Name;
+    int index;
+
+    public NotificationModel(Bitmap image, String name, int index) {
+        Image = image;
+        Name = name;
+        this.index = index;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
 
     public Bitmap getImage() {
         return Image;
@@ -22,8 +37,5 @@ public class NotificationModel {
         Name = name;
     }
 
-    public NotificationModel(Bitmap image, String name) {
-        Image = image;
-        Name = name;
-    }
+
 }

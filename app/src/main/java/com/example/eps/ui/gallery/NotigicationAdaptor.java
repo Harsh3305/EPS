@@ -34,8 +34,9 @@ public class NotigicationAdaptor  extends RecyclerView.Adapter<NotigicationAdapt
         // Data Binding
         Bitmap Icon = (categoryModelList.get(position).getImage());
         String Name = categoryModelList.get(position).getName();
+        int index = categoryModelList.get(position).getIndex();
 
-        holder.setCategory(Name, position, Icon);
+        holder.setCategory(Name, position, Icon, index);
 
     }
 
@@ -56,7 +57,8 @@ public class NotigicationAdaptor  extends RecyclerView.Adapter<NotigicationAdapt
 
         private ImageView categoryIcon;
         private TextView categoryName;
-        private TextView MusicPlayButton;
+
+
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -67,27 +69,28 @@ public class NotigicationAdaptor  extends RecyclerView.Adapter<NotigicationAdapt
 
         }
 
-        private void setCategoryIcon(int bitmap) {
+        private void setCategoryIcon(Bitmap bitmap) {
             // TODO: set category Icon here;
-            this.categoryIcon.setImageResource(bitmap);
+            this.categoryIcon.setImageBitmap(bitmap);
 
         }
 
-        public void setCategory(final String name, final int position, Bitmap bitmap) {
+        public void setCategory(final String name, final int position, Bitmap bitmap, final int index) {
             categoryName.setText(name);
             categoryIcon.setImageBitmap(bitmap);
-//
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if (position != -1) {
-//                        // TODO: change ProductDescription to Notification Description
-//                        Intent categoryIntent = new Intent(itemView.getContext(),ProductDescription.class);
-//                        categoryIntent.putExtra("Name", Integer.toString(position));
-//                        itemView.getContext().startActivity(categoryIntent);
-//                    }
-//                }
-//            });
+
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (position != -1) {
+                        // TODO: change ProductDescription to Notification Description
+                        Intent categoryIntent = new Intent(itemView.getContext(),ProductDescription.class);
+                        categoryIntent.putExtra("Name", Integer.toString(index));
+                        itemView.getContext().startActivity(categoryIntent);
+                    }
+                }
+            });
         }
 
     }

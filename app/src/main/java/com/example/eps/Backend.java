@@ -186,7 +186,7 @@ public class Backend {
     }
 
 
-    public void Cart ()  {
+    private void Cart ()  {
 
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -237,7 +237,13 @@ public class Backend {
 
                 CartAndPreviousOrder value = dataSnapshot.getValue(CartAndPreviousOrder.class);
 
+
+                if (value == null || value.isCart == null) {
+                    return;
+                }
+
                 String nameOfProduct = value.getNameOfProduct();
+
                 String Detail = value.Description;
                 String isCart = value.isCart;
 
@@ -338,7 +344,89 @@ public class Backend {
         product.NameOfProduct = list.get(index).NameOfProduct;
         DatabaseReference myRef = database.getReference("Purchase/" + UDI + "/"  + index);
         myRef.setValue(product);
+
     }
 
+    public void CurrentOrders() {
+        CurrentPurchase = new LinkedList<>();
+        String UID = getToken();
+        String Path = "Purchase/" + UID + "/";
+        for (int i = 0; i < list.size() ; i++) {
+            getCurrentPurchase(Path + i + "/", i);
+        }
+    }
+
+    public static LinkedList<Integer> CurrentPurchase = new LinkedList<>();
+    public static ArrayList<ProductOverView> CurrentPur = new ArrayList<>();
+
+    private void getCurrentPurchase(String Path, final int product) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Path);
+
+        // Read from the database
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                Product value = dataSnapshot.getValue(Product.class);
+                if (value != null && value.NameOfProduct != null) {
+                    System.out.println(product);
+                    ProductOverView Product = new ProductOverView(value.getNameOfProduct(), value.Price, value.Description);
+                    CurrentPur.add(Product);
+                    downloadImage("Product/" + Product.NameOfProduct + "/" + 0 + ".png", product);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+            }
+        });
+    }
+
+    public void downloadImage(String Path, final int index) {
+        StorageReference  ref = mStorageRef.child(Path);
+        ref.getBytes(1024*1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+//                CurrentPur.get(CurrentPur.size() - 1).setMainBitmap(bitmap);
+                ProductOverView product = CurrentPur.get(CurrentPur.size() - 1);
+                product.setMainBitmap(bitmap);
+                product.setIndex(index);
+                CurrentPur.add(CurrentPur.size() - 1, product);
+            }
+        });
+    }
+
+
+
+    public void removeFromCart(int index) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        String UID = getToken();
+        Product product = new Product();
+        ProductOverView productOverView = list.get(index);
+
+        product.NameOfProduct = productOverView.NameOfProduct;
+        product.Description = productOverView.Description;
+        product.Price = productOverView.Price;
+
+        String Path = UID + "/MyCart/";
+        System.out.println(index);
+
+        DatabaseReference myRef = database.getReference( Path + index);
+
+        myRef.setValue(product);
+    }
+
+    public void uploadUser(User user) {
+        String UID = user.UID;
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(UID + "/UserInfo/");
+
+        myRef.setValue(user);
+    }
 
 }

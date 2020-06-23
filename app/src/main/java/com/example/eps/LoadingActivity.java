@@ -32,7 +32,7 @@ public class LoadingActivity extends AppCompatActivity {
                 }
             }
         };
-        timer.schedule(task, 0, 100);
+        timer.schedule(task, 0, 140);
         if (counter >=100) {
             finish();
         }
