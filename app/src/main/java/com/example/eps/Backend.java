@@ -23,11 +23,17 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 
 public class Backend {
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     Bitmap bitmap;
+
+    HashMap<String, Integer> MapOfProduct = new HashMap<>();
+
     public boolean AuthNew(String email, String password, final Activity o) {
         if (email.length() ==0 || password.length() == 0) {
             return false;
@@ -56,8 +62,15 @@ public class Backend {
     }
 
     public FirebaseUser getUser() {
+
         return  mAuth.getCurrentUser();
     }
+
+    public String getToken() {
+        return mAuth.getUid();
+    }
+
+
 
     private static boolean isAuth;
     private void updateUI(FirebaseUser user) {
@@ -88,7 +101,6 @@ public class Backend {
         return isAuth;
     }
 
-
     public void init() {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -116,6 +128,7 @@ public class Backend {
 //                Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
+        Cart();
 
     }
 
@@ -139,6 +152,7 @@ public class Backend {
 
                 int index = list.size();
                 list.add(new ProductOverView(nameOfProduct, Price, Detail));
+                MapOfProduct.put(value.NameOfProduct, index);
 
                 int num = Integer.parseInt(NumberOfImages);
 
@@ -172,11 +186,14 @@ public class Backend {
     }
 
 
-    public void Notifications ()  {
+    public void Cart ()  {
 
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Notification/");
+        String UID = getToken();
+        final String Path = UID + "/MyCart/";
+        DatabaseReference myRef = database.getReference(Path);
+
 
 
         // Read from the database
@@ -186,10 +203,10 @@ public class Backend {
 
                 long size = dataSnapshot.getChildrenCount();
 
-                String Path = "Product/";
-
                 for (int i = 0; i < size; i++) {
-//                    ReadDatabase(Path + i);
+
+                    ReadCart(Path + i);
+
                 }
 
             }
@@ -205,9 +222,49 @@ public class Backend {
 
     }
 
+    public static LinkedList<Integer> Cart = new LinkedList<>();
+    public static  LinkedList<Integer> PreviousOrder = new LinkedList<>();
 
-    private void readNotification(String path) {
+    public void ReadCart(String Path) {
+        // Read from the database
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(Path);
 
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                CartAndPreviousOrder value = dataSnapshot.getValue(CartAndPreviousOrder.class);
+
+                String nameOfProduct = value.getNameOfProduct();
+                String Detail = value.Description;
+                String isCart = value.isCart;
+
+                System.out.println();
+                System.out.println(nameOfProduct);
+                System.out.println();
+
+
+                if (MapOfProduct.get(nameOfProduct)== null) {
+                    return;
+                }
+
+                int index = MapOfProduct.get(nameOfProduct);
+                if (isCart.equals("true")) {
+                    Cart.add(index);
+                }
+                else {
+                    PreviousOrder.add(index);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+
+            }
+        });
     }
 
 

@@ -1,14 +1,16 @@
 package com.example.eps.ui.gallery;
 
+import android.graphics.Bitmap;
+
 public class NotificationModel {
-    private int Image;
+    private Bitmap Image;
     private String Name;
 
-    public int getImage() {
+    public Bitmap getImage() {
         return Image;
     }
 
-    public void setImage(int image) {
+    public void setImage(Bitmap image) {
         Image = image;
     }
 
@@ -20,7 +22,7 @@ public class NotificationModel {
         Name = name;
     }
 
-    public NotificationModel(int image, String name) {
+    public NotificationModel(Bitmap image, String name) {
         Image = image;
         Name = name;
     }

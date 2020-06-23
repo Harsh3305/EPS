@@ -1,6 +1,7 @@
 package com.example.eps.ui.gallery;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,7 @@ public class NotigicationAdaptor  extends RecyclerView.Adapter<NotigicationAdapt
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // Data Binding
-        int Icon = (categoryModelList.get(position).getImage());
+        Bitmap Icon = (categoryModelList.get(position).getImage());
         String Name = categoryModelList.get(position).getName();
 
         holder.setCategory(Name, position, Icon);
@@ -72,9 +73,9 @@ public class NotigicationAdaptor  extends RecyclerView.Adapter<NotigicationAdapt
 
         }
 
-        public void setCategory(final String name, final int position, int bitmap) {
+        public void setCategory(final String name, final int position, Bitmap bitmap) {
             categoryName.setText(name);
-            categoryIcon.setImageResource(bitmap);
+            categoryIcon.setImageBitmap(bitmap);
 //
 //            itemView.setOnClickListener(new View.OnClickListener() {
 //                @Override

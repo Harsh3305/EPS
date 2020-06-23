@@ -17,7 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 public class Search extends AppCompatActivity {
     private ImageButton SearchButton;
     private EditText SearchTextView;
-    static int updateIndex = 5;
+    static int updateIndex = 10;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,16 +31,24 @@ public class Search extends AppCompatActivity {
             public void onClick(View v) {
                 Snackbar.make(v, "Got It", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                Product p = new Product();
+//                Product p = new Product();
+//
+//                p.NameOfProduct = SearchTextView.getText().toString();
+//                p.NumberOfImage = "3";
 
-                p.NameOfProduct = SearchTextView.getText().toString();
-                p.NumberOfImage = "3";
+
+                CartAndPreviousOrder cart = new CartAndPreviousOrder();
+                cart.NameOfProduct = SearchTextView.getText().toString();
+                cart.isCart = "true";
+                Backend backend = new Backend();
+
+                String UID = backend.getToken();
 
                 // Write a message to the database
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("Product/");
+                DatabaseReference myRef = database.getReference(UID + "/MyCart/");
 
-                myRef.child(Integer.toString(updateIndex)).setValue(p);
+                myRef.child(Integer.toString(updateIndex)).setValue(cart);
 
                 updateIndex++;
 
