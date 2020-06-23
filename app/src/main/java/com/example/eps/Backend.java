@@ -330,5 +330,15 @@ public class Backend {
     }
 
 
+    public void purchase(int index) {
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        String UDI = getToken();
+        Product product = new Product();
+        product.NameOfProduct = list.get(index).NameOfProduct;
+        DatabaseReference myRef = database.getReference("Purchase/" + UDI + "/"  + index);
+        myRef.setValue(product);
+    }
+
 
 }
