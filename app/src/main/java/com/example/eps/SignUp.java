@@ -37,7 +37,7 @@ public class SignUp extends AppCompatActivity {
         Signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                mAuth.signInWithEmailAndPassword(Email.getText().toString(), Pass.getText().toString())
+                mAuth.createUserWithEmailAndPassword(Email.getText().toString(), Pass.getText().toString())
                         .addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {

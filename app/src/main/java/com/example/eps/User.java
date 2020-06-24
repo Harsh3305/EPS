@@ -6,6 +6,15 @@ public class User {
     String Password;
     String Address;
     String UID;
+    String Phone;
+
+    public String getPhone() {
+        return Phone;
+    }
+
+    public void setPhone(String phone) {
+        Phone = phone;
+    }
 
     public String getName() {
         return Name;

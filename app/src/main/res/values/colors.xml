@@ -11,5 +11,6 @@
     <color name="Blue">#00BCD4</color>
     <color name="Indigo">#3F51B5</color>
     <color name="Violet">#673AB7</color>
+    <color name="Grey">#BE9F9F9F</color>
 
 </resources>

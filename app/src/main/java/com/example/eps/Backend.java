@@ -425,8 +425,6 @@ public class Backend {
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(UID + "/UserInfo/");
-
         myRef.setValue(user);
     }
-
 }
