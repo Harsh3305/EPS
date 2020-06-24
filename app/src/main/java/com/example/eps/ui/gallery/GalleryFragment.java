@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +24,7 @@ import com.example.eps.CategoryModel;
 import com.example.eps.LoadingActivity;
 import com.example.eps.ProductOverView;
 import com.example.eps.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -29,14 +32,22 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class GalleryFragment extends Fragment {
-
+    //  Current Purchase //
     private GalleryViewModel galleryViewModel;
+//    private Button SignOut;
+
     private RecyclerView NotificationRecycleView;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         galleryViewModel =
                 ViewModelProviders.of(this).get(GalleryViewModel.class);
         View root = inflater.inflate(R.layout.fragment_gallery, container, false);
+
+
+
+
+
+
 
 
         /////////////////// categoryRecyclerView
@@ -82,6 +93,7 @@ public class GalleryFragment extends Fragment {
         NotigicationAdaptor categoryAdapter = new NotigicationAdaptor(NotificationModelList);
         NotificationRecycleView.setAdapter(categoryAdapter);
         categoryAdapter.notifyDataSetChanged();
+
 
 
 

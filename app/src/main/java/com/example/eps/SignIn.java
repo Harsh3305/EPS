@@ -33,11 +33,9 @@ public class SignIn extends AppCompatActivity {
         Signin = findViewById(R.id.SignInbutton);
 
         Donthaveanaccount = findViewById(R.id.DontHaveAnAccount);
-
         Signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-
                 mAuth.signInWithEmailAndPassword(Email.getText().toString(), Pass.getText().toString())
                         .addOnCompleteListener(SignIn.this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -48,6 +46,8 @@ public class SignIn extends AppCompatActivity {
 //                                    backend.init();
                                     // TODO: Call Waiting Screen
                                     SystemClock.sleep(5000);
+                                    Signin.setEnabled(false);;
+                                    Signin.setBackgroundColor(getResources().getColor(R.color.Grey));
                                     startActivity(new Intent(SignIn.this, MainActivity.class));
                                     finish();
                                 } else {
@@ -57,6 +57,13 @@ public class SignIn extends AppCompatActivity {
                                 }
                             }
                         });
+            }
+        });
+        Donthaveanaccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SignIn.this, SignUp.class));
+                finish();
             }
         });
     }

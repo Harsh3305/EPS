@@ -22,6 +22,7 @@ import com.example.eps.ProductOverView;
 import com.example.eps.R;
 import com.example.eps.ui.gallery.NotificationModel;
 import com.example.eps.ui.gallery.NotigicationAdaptor;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -33,6 +34,8 @@ public class SlideshowFragment extends Fragment {
     private SlideshowViewModel slideshowViewModel;
     private RecyclerView CartRecycleView;
     Button BuyAllButton;
+    private Button SignOut;
+    // MY Cart //
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -46,49 +49,64 @@ public class SlideshowFragment extends Fragment {
             public void onChanged(@Nullable String s) {
             }
         });
-        BuyAllButton = root.findViewById(R.id.BuyAllButton);
+//
+//        BuyAllButton = root.findViewById(R.id.BuyAllButton);
+//
+//
+//        /////////////////// categoryRecyclerView
+//
+//        CartRecycleView = root.findViewById(R.id.CartRecycleView);
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+//        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+//        CartRecycleView.setLayoutManager(linearLayoutManager);
+//
+//
+//        List<NotificationModel> NotificationModelList = new LinkedList<>();
+//
+//        final LinkedList<Integer> list = Backend.Cart;
+//        System.out.println(list.size());
+//
+//        for (int i = 0; i < list.size(); i++) {
+//            int index = list.get(i);
+//            ProductOverView product = Backend.list.get(index);
+//            Bitmap bitmap = product.getMainBitmap();
+//            String Name = product.getNameOfProduct();
+//            System.out.println(i);
+//            NotificationModelList.add(new NotificationModel(bitmap, Name, index));
+//
+//        }
+//
+//
+//        NotigicationAdaptor categoryAdapter = new NotigicationAdaptor(NotificationModelList);
+//        CartRecycleView.setAdapter(categoryAdapter);
+//        categoryAdapter.notifyDataSetChanged();
+//
+//
+//        BuyAllButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                for (int i = 0; i < list.size(); i++) {
+//                    int index = list.get(i);
+//                    Backend backend = new Backend();
+//                    backend.purchase(index);
+//                    backend.removeFromCart(index);
+//                }
+//            }
+//        });
+        SignOut = root.findViewById(R.id.SignOut);
 
-
-        /////////////////// categoryRecyclerView
-
-        CartRecycleView = root.findViewById(R.id.CartRecycleView);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        CartRecycleView.setLayoutManager(linearLayoutManager);
-
-
-        List<NotificationModel> NotificationModelList = new LinkedList<>();
-
-        final LinkedList<Integer> list = Backend.Cart;
-        System.out.println(list.size());
-
-        for (int i = 0; i < list.size(); i++) {
-            int index = list.get(i);
-            ProductOverView product = Backend.list.get(index);
-            Bitmap bitmap = product.getMainBitmap();
-            String Name = product.getNameOfProduct();
-            System.out.println(i);
-            NotificationModelList.add(new NotificationModel(bitmap, Name, index));
-
-        }
-
-
-        NotigicationAdaptor categoryAdapter = new NotigicationAdaptor(NotificationModelList);
-        CartRecycleView.setAdapter(categoryAdapter);
-        categoryAdapter.notifyDataSetChanged();
-
-
-        BuyAllButton.setOnClickListener(new View.OnClickListener() {
+        SignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (int i = 0; i < list.size(); i++) {
-                    int index = list.get(i);
-                    Backend backend = new Backend();
-                    backend.purchase(index);
-                    backend.removeFromCart(index);
-                }
+                Toast.makeText(v.getContext(), "See you soon", Toast.LENGTH_LONG).show();
+                Backend backend = new Backend();
+                backend.signOut();
+                Snackbar.make(v, "Please close this app as soon as possible", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
+
+
 
         return root;
     }

@@ -20,14 +20,14 @@
         app:layout_constraintVertical_bias="1.0">
 
         <Button
-            android:layout_width="354dp"
-            android:layout_height="55dp"
+            android:id="@+id/Purchase"
+            android:layout_width="395dp"
+            android:layout_height="61dp"
             android:background="@color/colorPrimary"
             android:text="Purchase"
             android:textColor="@color/colorAccent"
             android:textSize="30dp"
             android:textStyle="bold"
-            android:id="@+id/Purchase"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/floatingActionButton"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,6 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
+            android:visibility="gone"
             android:clickable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

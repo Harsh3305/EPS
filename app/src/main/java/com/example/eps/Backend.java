@@ -60,6 +60,9 @@ public class Backend {
         return isAuth;
 
     }
+    public void signOut() {
+        mAuth.signOut();
+    }
 
     public FirebaseUser getUser() {
 
@@ -429,10 +432,10 @@ public class Backend {
     }
     public void cancelOrder(int index) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        String UID = getToken();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        String UID = mAuth.getUid();
         String Path =  "Purchase/" + UID + "/";
         System.out.println(index);
-
         DatabaseReference myRef = database.getReference( Path + index);
 
         myRef.setValue(new Product());
