@@ -34,7 +34,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/CancelOrder"
         android:layout_width="79dp"
         android:layout_height="79dp"
         android:text="X"

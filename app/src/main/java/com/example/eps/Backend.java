@@ -427,4 +427,15 @@ public class Backend {
         DatabaseReference myRef = database.getReference(UID + "/UserInfo/");
         myRef.setValue(user);
     }
+    public void cancelOrder(int index) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        String UID = getToken();
+        String Path =  "Purchase/" + UID + "/";
+        System.out.println(index);
+
+        DatabaseReference myRef = database.getReference( Path + index);
+
+        myRef.setValue(new Product());
+
+    }
 }

@@ -11,9 +11,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.eps.Backend;
 import com.example.eps.CategoryModel;
 import com.example.eps.ProductDescription;
 import com.example.eps.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -57,6 +59,7 @@ public class NotigicationAdaptor  extends RecyclerView.Adapter<NotigicationAdapt
 
         private ImageView categoryIcon;
         private TextView categoryName;
+        private TextView CancelOrder;
 
 
 
@@ -66,7 +69,7 @@ public class NotigicationAdaptor  extends RecyclerView.Adapter<NotigicationAdapt
             super(itemView);
             categoryIcon = itemView.findViewById(R.id.NotificationImage);
             categoryName = itemView.findViewById(R.id.NotificationName);
-
+            CancelOrder = itemView.findViewById(R.id.CancelOrder);
         }
 
         private void setCategoryIcon(Bitmap bitmap) {
@@ -78,6 +81,19 @@ public class NotigicationAdaptor  extends RecyclerView.Adapter<NotigicationAdapt
         public void setCategory(final String name, final int position, Bitmap bitmap, final int index) {
             categoryName.setText(name);
             categoryIcon.setImageBitmap(bitmap);
+
+            CancelOrder.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (position != -1) {
+                        Backend backend = new Backend();
+                        backend.cancelOrder(index);
+                        Snackbar.make(v, "Your order is cancel.", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+
+                    }
+                }
+            });
 
 
             itemView.setOnClickListener(new View.OnClickListener() {
