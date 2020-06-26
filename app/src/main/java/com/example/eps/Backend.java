@@ -423,6 +423,10 @@ public class Backend {
         myRef.setValue(product);
     }
 
+    public void verifyEmail(String Email, String phone) {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    }
+
     public void uploadUser(User user) {
         String UID = user.UID;
         // Write a message to the database
@@ -437,8 +441,6 @@ public class Backend {
         String Path =  "Purchase/" + UID + "/";
         System.out.println(index);
         DatabaseReference myRef = database.getReference( Path + index);
-
         myRef.setValue(new Product());
-
     }
 }

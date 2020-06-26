@@ -27,7 +27,7 @@ public class Settings extends AppCompatActivity {
         SettingName = findViewById(R.id.SettingName);
         SettingEmail = findViewById(R.id.SettingEmail);
         SettingPhone = findViewById(R.id.SettingPhone);
-        Backend backend = new Backend();
+        final Backend backend = new Backend();
         String Email = backend.getUser().getEmail();
         SettingEmail.setText(Email);
         SettingEmail.setEnabled(false);
@@ -43,13 +43,15 @@ public class Settings extends AppCompatActivity {
                 user.Address = SettingAddress.getText().toString();
                 user.Name = SettingName.getText().toString();
                 user.setPhone(SettingPhone.getText().toString());
-
+//                user.UID uid =
                 if (user.Address == null || user.Address.equals("") || user.Name == null || user.Name.equals("") || user.Phone == null || user.Phone.equals("")) {
                     Snackbar.make(v, "Please enter a valid Information", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
                 else {
+
                     Backend backend = new Backend();
+                    user.UID = backend.getToken();
                     backend.uploadUser(user);
                     Toast.makeText(Settings.this, "Your Data is send to our servers :) Thank you", Toast.LENGTH_SHORT).show();
                     finish();
