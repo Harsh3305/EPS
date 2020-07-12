@@ -1,15 +1,26 @@
 package com.example.eps;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -17,6 +28,7 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity {
     int counter;
     ProgressBar MainScreenProgressBar;
+    String Subscription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +39,35 @@ public class MainActivity extends AppCompatActivity {
         Backend backend = new Backend();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser User = mAuth.getCurrentUser();
+
+        if (mAuth.getCurrentUser() == null) {
+            Subscription = "NewUser";
+        }
+        else if (! mAuth.getCurrentUser().isEmailVerified()) {
+            Subscription = "NotVerify";
+        }
+        else {
+            Subscription = "ExistingUser";
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("MyNotifications","MyNotifications", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+        FirebaseMessaging.getInstance().subscribeToTopic(Subscription)
+        .addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+            }
+        });
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
 
 //
 //        if (User.isEmailVerified()) {

@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 
+import com.example.eps.ui.gallery.GalleryFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -56,12 +57,14 @@ public class Home extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home, menu);
+        GalleryFragment.update();
         return true;
     }
 
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        GalleryFragment.update();
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }

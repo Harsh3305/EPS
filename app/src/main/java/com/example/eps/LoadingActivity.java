@@ -18,6 +18,7 @@ public class LoadingActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar2);
         prog();
     }
+
     private void prog() {
         final Timer timer = new Timer();
         final TimerTask task = new TimerTask() {

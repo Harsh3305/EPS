@@ -73,6 +73,14 @@ public class ProductDescription extends AppCompatActivity {
         productName = findViewById(R.id.ProductName);
 
         productName.setText(product.NameOfProduct);
+        if (! product.getDescription().equals("")) {
+            Description.setText(product.Description);
+        }
+        else {
+            Description.setText("Not Available");
+        }
+
+
         Description.setText(product.Description);
         if (! product.getPrice().equals("")) {
             Price.setText(product.Price);
@@ -80,7 +88,6 @@ public class ProductDescription extends AppCompatActivity {
         else {
             Price.setText("Not Available");
         }
-
 
         /////////////////// categoryRecyclerView
 

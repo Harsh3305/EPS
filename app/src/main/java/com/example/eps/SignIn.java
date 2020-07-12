@@ -48,8 +48,15 @@ public class SignIn extends AppCompatActivity {
                                     SystemClock.sleep(5000);
                                     Signin.setEnabled(false);;
                                     Signin.setBackgroundColor(getResources().getColor(R.color.Grey));
-                                    startActivity(new Intent(SignIn.this, MainActivity.class));
-                                    finish();
+                                    if (user.isEmailVerified()) {
+                                        startActivity(new Intent(SignIn.this, MainActivity.class));
+                                        finish();
+                                    }
+                                    else {
+                                        startActivity(new Intent(SignIn.this, Verification.class));
+                                    }
+
+
                                 } else {
 
                                     Snackbar.make(v, task.getException().toString(), Snackbar.LENGTH_LONG)

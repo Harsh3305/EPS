@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +20,8 @@ import com.example.eps.CategoryAdapter;
 import com.example.eps.CategoryModel;
 import com.example.eps.ProductOverView;
 import com.example.eps.R;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +29,8 @@ import java.util.List;
 public class HomeFragment extends Fragment {
     private RecyclerView categoryRecyclerView;
     private HomeViewModel homeViewModel;
+//    private static final String TAG = "Home";
+//    private AdView mAdView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -44,14 +49,16 @@ public class HomeFragment extends Fragment {
         List<CategoryModel> categoryModelList = new ArrayList<>();
 
         for (int i = 0; i < Backend.list.size(); i++) {
-            categoryModelList.add(new CategoryModel(Backend.list.get(i).getMainBitmap(), Backend.list.get(i).getNameOfProduct()));
+            categoryModelList.add(new CategoryModel(Backend.list.get(i).getMainBitmap(), Backend.list.get(i).getNameOfProduct(),Backend.list.get(i).getPrice()));
         }
-
 
         CategoryAdapter categoryAdapter = new CategoryAdapter(categoryModelList);
         categoryRecyclerView .setAdapter(categoryAdapter);
         categoryAdapter.notifyDataSetChanged();
 
+//        mAdView = root.findViewById(R.id.adView);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdView.loadAd(adRequest);
 
         return root;
     }

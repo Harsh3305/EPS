@@ -1,9 +1,11 @@
 package com.example.eps;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
@@ -34,9 +36,22 @@ public class SignUp extends AppCompatActivity {
         Pass = findViewById(R.id.SignUpPassword);
         Signup = findViewById(R.id.SignUpbutton);
         Donthaveanaccount = findViewById(R.id.AlreadyHaveAnAccount);
+
+
         Signup.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(final View v) {
+
+
+                if (Email.getText().toString().equals("") || Pass.getText().toString().equals("")) {
+                    Snackbar.make(v, "Please enter valid data :) ", Snackbar.LENGTH_LONG).setBackgroundTint(getResources().getColor(R.color.Grey))
+                            .setTextColor(getResources().getColor(R.color.colorPrimary))
+                            .setAction("Action", null).show();
+                    Email.setText("");
+                    Pass.setText("");
+                }
+
                 mAuth.createUserWithEmailAndPassword(Email.getText().toString(), Pass.getText().toString())
                         .addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
                             @Override

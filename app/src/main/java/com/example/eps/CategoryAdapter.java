@@ -29,8 +29,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         // Data Binding
         Bitmap Icon = (categoryModelList.get(position).getImage());
         String Name = categoryModelList.get(position).getName();
-
-        holder.setCategory(Name, position, Icon);
+        String Price = categoryModelList.get(position).getPrice();
+        holder.setCategory(Name, position, Icon, Price);
 
     }
 
@@ -58,7 +58,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         private ImageView categoryIcon;
         private TextView categoryName;
-        private TextView MusicPlayButton;
+        private TextView categoryPrice;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -66,7 +66,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             super(itemView);
             categoryIcon = itemView.findViewById(R.id.ProductImageShortView);
             categoryName = itemView.findViewById(R.id.ProductNameShortView);
-            MusicPlayButton = itemView.findViewById(R.id.ProductPriceShortView);
+            categoryPrice = itemView.findViewById(R.id.ProductPriceShortView);
 
 
         }
@@ -77,9 +77,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         }
 
-        private void setCategory(final String name, final int position, Bitmap bitmap) {
+        private void setCategory(final String name, final int position, Bitmap bitmap, String price) {
             categoryName.setText(name);
             categoryIcon.setImageBitmap(bitmap);
+            categoryPrice.setText(price);
 
             categoryIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -103,7 +104,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                 }
             });
 
-            MusicPlayButton.setOnClickListener(new View.OnClickListener() {
+            categoryPrice.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (position != -1) {

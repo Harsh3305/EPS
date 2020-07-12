@@ -21,14 +21,14 @@
 
     <EditText
         android:id="@+id/SettingAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="104dp"
+        android:layout_width="333dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="100dp"
         android:ems="10"
         android:hint="Address"
         android:inputType="textPostalAddress"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SettingEmail" />
 
@@ -76,5 +76,19 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SettingAddress" />
+
+    <EditText
+        android:id="@+id/City"
+        android:layout_width="79dp"
+        android:layout_height="49dp"
+        android:ems="10"
+        android:enabled="false"
+        android:background="@color/Grey"
+        android:inputType="textPersonName"
+        android:text="Delhi"
+        app:layout_constraintBottom_toBottomOf="@+id/SettingAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/SettingAddress"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

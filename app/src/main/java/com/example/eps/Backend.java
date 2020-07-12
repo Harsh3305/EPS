@@ -29,7 +29,7 @@ import java.util.Map;
 
 public class Backend {
 
-    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    public FirebaseAuth mAuth = FirebaseAuth.getInstance();
     Bitmap bitmap;
 
     HashMap<String, Integer> MapOfProduct = new HashMap<>();
@@ -151,6 +151,9 @@ public class Backend {
                 String nameOfProduct = value.getNameOfProduct();
                 String Detail = value.Description;
                 String Price = value.Price;
+                if (Price.equals("")) {
+                    Price = "Not Available";
+                }
                 String NumberOfImages = value.NumberOfImage;
 
                 int index = list.size();
@@ -377,6 +380,7 @@ public class Backend {
                     System.out.println(product);
                     ProductOverView Product = new ProductOverView(value.getNameOfProduct(), value.Price, value.Description);
                     CurrentPur.add(Product);
+                    //TODO: change
                     downloadImage("Product/" + Product.NameOfProduct + "/" + 0 + ".png", product);
                 }
             }
@@ -389,18 +393,22 @@ public class Backend {
 
     public void downloadImage(String Path, final int index) {
         StorageReference  ref = mStorageRef.child(Path);
-        ref.getBytes(1024*1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+//        ref.getBytes(1024*1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+//            @Override
+//            public void onSuccess(byte[] bytes) {
+//                bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+//
+////                CurrentPur.get(CurrentPur.size() - 1).setMainBitmap(bitmap);
+//                ProductOverView product = CurrentPur.get(CurrentPur.size() - 1);
+//                product.setMainBitmap(bitmap);
+//                product.setIndex(index);
+//                CurrentPur.add(CurrentPur.size() - 1, product);
+//            }
+//        });
 
-//                CurrentPur.get(CurrentPur.size() - 1).setMainBitmap(bitmap);
-                ProductOverView product = CurrentPur.get(CurrentPur.size() - 1);
-                product.setMainBitmap(bitmap);
-                product.setIndex(index);
-                CurrentPur.add(CurrentPur.size() - 1, product);
-            }
-        });
+        ProductOverView product = CurrentPur.get(CurrentPur.size() - 1);
+        product.setMainBitmap(null);
+        product.setIndex(index);
     }
 
 
@@ -433,6 +441,34 @@ public class Backend {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(UID + "/UserInfo/");
         myRef.setValue(user);
+    }
+    private User user;
+    public User getUserInfo() {
+        String UID = getToken();
+        user = new User();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(UID + "/UserInfo");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                User Data = dataSnapshot.getValue(User.class);
+                user.Address = Data.Address;
+                user.Email = Data.Email;
+                user.Name = Data.Name;
+                user.Password = Data.Password;
+                user.UID = Data.UID;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+
+            }
+        });
+        return user;
     }
     public void cancelOrder(int index) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();

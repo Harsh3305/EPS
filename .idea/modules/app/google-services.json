@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "960274180037",
+    "firebase_url": "https://eps-database-16cd6.firebaseio.com",
+    "project_id": "eps-database-16cd6",
+    "storage_bucket": "eps-database-16cd6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:960274180037:android:91bf2ea230ed6009840dac",
+        "android_client_info": {
+          "package_name": "com.example.eps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "960274180037-7ev6act443u2b9okijvc6jkbd5o5s5oi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbq4qxTxSvKZimR56mbCFiIJLCnW0yKNU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "960274180037-7ev6act443u2b9okijvc6jkbd5o5s5oi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

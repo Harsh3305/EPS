@@ -138,13 +138,16 @@
                         app:layout_constraintVertical_bias="0.0" />
 
                     <TextView
+
+                        android:layout_marginRight="25dp"
+                        android:id="@+id/Description"
                         android:layout_width="match_parent"
                         android:layout_height="211dp"
-                        android:layout_marginTop="52dp"
-                        android:id="@+id/Description"
+                        android:layout_marginTop="48dp"
+                        android:isScrollContainer="true"
+                        android:scrollbars="vertical"
                         android:text="No Description Available"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.457"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 

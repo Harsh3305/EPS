@@ -90,11 +90,21 @@ public class NotigicationAdaptor  extends RecyclerView.Adapter<NotigicationAdapt
                         backend.cancelOrder(index);
                         Snackbar.make(v, "Your order is cancel.", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
+                        //TODO: experimental line.
 
+                        //categoryModelList.remove(position);
+
+                        itemView.setEnabled(false);
+                        itemView.setBackgroundResource(R.color.Grey);
+
+//                        itemView.setVisibility(View.GONE);
+//                        GalleryFragment.NotificationModelList.remove(position);
+                        GalleryFragment.cancellationEmail(name);
+                        backend.CurrentOrders();
+                        GalleryFragment.update();
                     }
                 }
             });
-
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
